@@ -1,12 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>My Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
+
 <body>
-  <h1>Monthly Report Dashboard</h1>
-  <div id="report">No data yet</div>
-  <script src="script.js"></script>
+    <div class="container">
+        <h1>Professional Dashboard</h1>
+
+        <div class="summary-toggle">
+            <button onclick="toggleSummary()">Toggle Log Summary</button>
+        </div>
+        <div class="summary-container" id="summary-container" style="display: none;">
+            <h2>Brand Summary Reports</h2>
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" required>
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" required>
+            <button onclick="generateSummary()">Generate Summary</button>
+            <div id="brand-summaries"></div>
+        </div>
+
+        <div id="filter-form">
+            <div class="form-group">
+                <label for="brands">Brands:</label>
+                <select id="brands" required>
+                    <option value="">Select Brand</option>
+                    <option value="CX BDT">CX BDT</option>
+                    <option value="CX INR">CX INR</option>
+                    <option value="CX PKR">CX PKR</option>
+                    <option value="CX NPR">CX NPR</option>
+                    <option value="CX USD">CX USD</option>
+                    <option value="CX LKR">CX LKR</option>
+                    <option value="CX AED">CX AED</option>
+                    <option value="BJ BDT">BJ BDT</option>
+                    <option value="BJ INR">BJ INR</option>
+                    <option value="BJ PKR">BJ PKR</option>
+                    <option value="BJ NPR">BJ NPR</option>
+                    <option value="BJ PHP">BJ PHP</option>
+                    <option value="BJ VND">BJ VND</option>
+                    <option value="BJ THB">BJ THB</option>
+                    <option value="BJ MMK">BJ MMK</option>
+                    <option value="MP BDT">MP BDT</option>
+                    <option value="MP INR">MP INR</option>
+                    <option value="MP PKR">MP PKR</option>
+                    <option value="MP NPR">MP NPR</option>
+                    <option value="DP BDT">DP BDT</option>
+                    <option value="KV BDT">KV BDT</option>
+                    <option value="HB BDT">HB BDT</option>
+                    <option value="JB BDT">JB BDT</option>
+                    <option value="SB BDT">SB BDT</option>
+                    <option value="SLB BDT">SLB BDT</option>
+                    <option value="JW BDT">JW BDT</option>
+                    <option value="JW INR">JW INR</option>
+                    <option value="BJD BDT">BJD BDT</option>
+                    <option value="BN BDT">BN BDT</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter Username" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status">
+                    <option value="">Select Status</option>
+                    <option value="Move to B.H">Move to B.H</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Re-Activated">Re-Activated</option>
+                    <option value="Closed">Closed</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bonus-type">Bonus Type:</label>
+                <select id="bonus-type">
+                    <option value="">Select Bonus Type</option>
+                    <option value="Normal Deposit">Normal Deposit</option>
+                    <option value="FC Abuser">FC Abuser</option>
+                    <option value="FDB Abuser">FDB Abuser</option>
+                    <option value="KYC Abuser">KYC Abuser</option>
+                    <option value="RAF Abuser">RAF Abuser</option>
+                    <option value="Reload Abuser">Reload Abuser</option>
+                    <option value="Observation">Observation</option>
+                    <option value="PGS Abuser">PGS Abuser</option>
+                    <option value="Spin & Win Abuser">Spin & Win Abuser</option>
+                    <option value="Fraud">Fraud</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="risk-remark">Risk Remark:</label>
+                <select id="risk-remark">
+                    <option value="">Select Risk Remark</option>
+                    <option value="Suspicious Activity Identified">Suspicious Activity Identified</option>
+                    <option value="Suspicious Activity Identified - Fund In / Fund Out">Suspicious Activity Identified - Fund In / Fund Out</option>
+                    <option value="Hedging Betting Pattern Cross Brands">Hedging Betting Pattern Cross Brands</option>
+                    <option value="Hedging Betting Pattern">Hedging Betting Pattern</option>
+                    <option value="Suspicious Activity detected by the game provider, indicating a potential fixed game.">Suspicious Activity detected by the game provider, indicating a potential fixed game.</option>
+                    <option value="Suspicious Activity: identical games and repeated betting patterns / Self-Dealing">Suspicious Activity: identical games and repeated betting patterns / Self-Dealing</option>
+                    <option value="Suspicious Activity: detected by the game provider, indicating a potential group betting arbitrage players.">Suspicious Activity: detected by the game provider, indicating a potential group betting arbitrage players.</option>
+                    <option value="Suspicious Activity: Play With Excluded Games">Suspicious Activity: Play With Excluded Games</option>
+                    <option value="Suspicious Activity detected: identical games and repeated betting patterns">Suspicious Activity detected: identical games and repeated betting patterns</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="connection">Connection:</label>
+                <input type="text" id="connection" placeholder="Enter Connection">
+            </div>
+            <div class="form-group">
+                <label for="pic">PIC:</label>
+                <select id="pic">
+                    <option value="">Select PIC</option>
+                    <option value="Chad">Chad</option>
+                    <option value="Buth">Buth</option>
+                    <option value="Dara">Dara</option>
+                    <option value="Jita">Jita</option>
+                </select>
+            </div>
+            <div class="form-group" style="grid-column: span 3; text-align: center;">
+                <button onclick="saveData()">Save Data</button>
+                <button onclick="searchData()">Search</button>
+                <button onclick="document.getElementById('file-input').click()">Mass Update</button>
+                <input type="file" id="file-input" accept=".csv,.xlsx" style="display: none;" onchange="handleFileUpload(event)">
+            </div>
+        </div>
+
+        <!-- Section for Uploaded Usernames -->
+        <div class="uploaded-usernames" id="uploaded-usernames-section" style="display: none;">
+            <h3>Uploaded Usernames:</h3>
+            <div id="uploaded-usernames-output"></div>
+            <div class="form-group">
+                <label for="mass-action">Action:</label>
+                <select id="mass-action" onchange="toggleMassAction()">
+                    <option value="">Select Action</option>
+                    <option value="Add">Add</option>
+                    <option value="Remove">Remove</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mass-brands">Brands:</label>
+                <select id="mass-brands" required>
+                    <option value="">Select Brand</option>
+                    <option value="CX BDT">CX BDT</option>
+                    <option value="CX INR">CX INR</option>
+                    <option value="CX PKR">CX PKR</option>
+                    <option value="CX NPR">CX NPR</option>
+                    <option value="CX USD">CX USD</option>
+                    <option value="CX LKR">CX LKR</option>
+                    <option value="CX AED">CX AED</option>
+                    <option value="BJ BDT">BJ BDT</option>
+                    <option value="BJ INR">BJ INR</option>
+                    <option value="BJ PKR">BJ PKR</option>
+                    <option value="BJ NPR">BJ NPR</option>
+                    <option value="BJ PHP">BJ PHP</option>
+                    <option value="BJ VND">BJ VND</option>
+                    <option value="BJ THB">BJ THB</option>
+                    <option value="BJ MMK">BJ MMK</option>
+                    <option value="MP BDT">MP BDT</option>
+                    <option value="MP INR">MP INR</option>
+                    <option value="MP PKR">MP PKR</option>
+                    <option value="MP NPR">MP NPR</option>
+                    <option value="DP BDT">DP BDT</option>
+                    <option value="KV BDT">KV BDT</option>
+                    <option value="HB BDT">HB BDT</option>
+                    <option value="JB BDT">JB BDT</option>
+                    <option value="SB BDT">SB BDT</option>
+                    <option value="SLB BDT">SLB BDT</option>
+                    <option value="JW BDT">JW BDT</option>
+                    <option value="JW INR">JW INR</option>
+                    <option value="BJD BDT">BJD BDT</option>
+                    <option value="BN BDT">BN BDT</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mass-status">Status:</label>
+                <select id="mass-status">
+                    <option value="">Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Closed">Closed</option>
+                    <option value="Move to B.H">Move to B.H</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mass-remark">Risk Remark:</label>
+                <select id="mass-remark"></select>
+            </div>
+            <div class="form-group">
+                <label for="mass-pic">PIC:</label>
+                <select id="mass-pic"></select>
+            </div>
+            <div class="form-group" style="text-align: center;">
+                <button onclick="submitUsernames()">Submit</button>
+                <button onclick="clearUploadedUsernames()">Back</button> <!-- Back Button -->
+            </div>
+        </div>
+
+        <!-- Summary Table -->
+        <h2 id="list-summary">List Summary</h2>
+        <table id="summary-table">
+            <thead>
+                <tr id="table-header">
+                    <th>Brands</th>
+                    <th>Date</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Bonus Type</th>
+                    <th>Risk Remark</th>
+                    <th>Connection</th>
+                    <th>PIC</th>
+                    <th>Remark on Player Profile</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
